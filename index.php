@@ -617,6 +617,7 @@ function print_add_ticket()
                                 break;
 
                             /* Default text input */
+                            
                             default:
                                 if (strlen($k_value) != 0 || isset($_SESSION["c_$k"]))
                                 {
@@ -624,8 +625,23 @@ function print_add_ticket()
                                 }
 
                                 $cls = in_array($k,$_SESSION['iserror']) ? 'isError' : '';
-
+                                if ($v['name'] == "Nombre de la Empresa") {
                                 echo '
+
+                    <div class="form-group '.$cls.'">
+                        <label for="'.$k.'" class="col-sm-3 control-label">Desea Tomar los mismos datos personales para realizar la facturación?</label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" id="repetir_datos"> Si
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>';
+                                    echo '<div align="left" class="h3">Datos de Facturación</div>
+                    <div class="footerWithBorder"></div>
+                    
+                    <div class="blankSpace"></div>';
+                                }
+                                echo '
+
                     <div class="form-group '.$cls.'">
                         <label for="'.$k.'" class="col-sm-3 control-label">'.$v['name'].' '.$v['req'].'</label>
                         <div class="col-sm-9">
@@ -638,6 +654,27 @@ function print_add_ticket()
                 }
 
                 ?>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $("#repetir_datos").click(function(){
+                            if ($("#repetir_datos").is(":checked")) {
+                                $("[name='custom7']").val($("[name='name']").val())
+                                $("[name='custom12']").val($("[name='email']").val())
+                                $("[name='custom8']").val($("[name='custom2']").val())
+                                $("[name='custom9']").val($("[name='custom3']").val())
+                                $("[name='custom10']").val($("[name='custom4']").val())
+                                $("[name='custom11']").val($("[name='custom5']").val())
+                            }else{
+                                $("[name='custom7']").val("")
+                                $("[name='custom12']").val("")
+                                $("[name='custom8']").val("")
+                                $("[name='custom9']").val("")
+                                $("[name='custom10']").val("")
+                                $("[name='custom11']").val("")
+                            }
+                        });
+                    });
+                </script>
                 <!-- END CUSTOM BEFORE -->
                 <div class="blankSpace"></div>
                 <script type="text/javascript">
@@ -655,7 +692,7 @@ function print_add_ticket()
                         
                     });
                 </script>
-                    <div align="left" class="h3">Equipos</div>
+                    <div align="left" class="h3">Ingreso de Instrumentos</div>
                     <div class="footerWithBorder"></div>
                     <button class="btn btn-default btn-xs" id="btn-add-row" style="margin-top:10px" title="Agregar Fila"><span class="glyphicon glyphicon-plus"></span></button>
                     <div class="blankSpace"></div>
